@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz-Mindmap: Verben & Adjektive (Interaktiv)</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg-verb: #1e293b;
+            --card-bg-adj: #1e293b; /* Mesma cor base, mas vamos mudar as bordas */
+            --text-main: #f8fafc;
+            --accent-verb: #3b82f6; /* Azul para verbos */
+            --accent-adj: #10b981; /* Verde para adjetivos */
+            --line-color: #475569;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .header-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: #f59e0b;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            font-size: 2.5rem;
+        }
+
+        p.subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin: 60px 0 30px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed var(--line-color);
+            width: 100%;
+            display: inline-block;
+        }
+        
+        .section-title.verb-title { color: var(--accent-verb); }
+        .section-title.adj-title { color: var(--accent-adj); }
+
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background-color: var(--card-bg-verb);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--line-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card.verb-card { border-top: 4px solid var(--accent-verb); }
+        .category-card.verb-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2); 
+            border-color: var(--accent-verb); 
+        }
+
+        .category-card.adj-card { border-top: 4px solid var(--accent-adj); }
+        .category-card.adj-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2); 
+            border-color: var(--accent-adj); 
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .category-card.verb-card .category-title { color: var(--text-main); }
+        .category-card.adj-card .category-title { color: var(--text-main); }
+
+        .vocabulary-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .vocab-item {
+            background-color: rgba(255, 255, 255, 0.06);
+            padding: 8px 12px;
+            border-radius: 20px; /* Estilo pílula */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Efeitos por tipo */
+        .verb-card .vocab-item:hover {
+            background-color: rgba(59, 130, 246, 0.15);
+            border-color: var(--accent-verb);
+        }
+        .verb-card .vocab-item.highlighted {
+            background-color: var(--accent-verb);
+            color: #fff;
+            border-color: var(--accent-verb);
+            font-weight: bold;
+        }
+        
+        .adj-card .vocab-item:hover {
+            background-color: rgba(16, 185, 129, 0.15);
+            border-color: var(--accent-adj);
+        }
+        .adj-card .vocab-item.highlighted {
+            background-color: var(--accent-adj);
+            color: #fff;
+            border-color: var(--accent-adj);
+            font-weight: bold;
+        }
+
+        .icon {
+            font-size: 1.1rem;
+        }
+
+        /* Efeito de interconexão visual suave (opcional no grid) */
+        @media (max-width: 768px) {
+            .masonry-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <h1>✨ Interaktive Verben & Adjektive</h1>
+        <p class="subtitle">Klicken Sie auf die Wörter, um sie farblich zu markieren und besser zu behalten. Der Wortschatz ist in Sinneinheiten (Cluster) unterteilt.</p>
+    </div>
+
+    <!-- SEÇÃO DE VERBOS -->
+    <h2 class="section-title verb-title">🏃‍♂️ Verben (Aktionen & Tun)</h2>
+    <div class="masonry-grid">
+        <div class="category-card verb-card">
+            <div class="category-title">⚽ Freizeit, Spiel & Kreativität</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">✂️ basteln (hat gebastelt)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">✏️ machen (hat gemacht)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🎤 singen (hat gesungen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">⚽</span><span class="word-span">🎮 spielen (hat gespielt)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🏆 gewinnen (hat gewonnen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🏊 schwimmen (istgeschwommen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">📸 fotografieren (hat fotografiert)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">📹 filmen (hat gefilmt)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🔨 bauen (hat gebaut)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">⏳</span><span class="word-span">🖌️ malen (hat gemalt)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">😂 lachen (hat gelacht)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🙋 mit|machen (hat mitgemacht)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🦸 verkleiden (hat verkleidet)</span></div>
+            </div>
+        </div>
+        <div class="category-card verb-card">
+            <div class="category-title">🍽️ Alltag, Körper & Leben</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🍽️</span><span class="word-span">🍳 kochen (hat gekocht)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🍽️</span><span class="word-span">🍽️ essen (hat gegessen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">👅 schmecken (hat geschmeckt)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🚿 duschen (hat geduscht)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🛁 baden (hat gebadet)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🥖 backen (hat gebacken)</span></div>
+            </div>
+        </div>
+        <div class="category-card verb-card">
+            <div class="category-title">👀 Sinne, Gefühle & Kommunikation</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">❌ aus|fallen (istausgefallen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">👀</span><span class="word-span">👀 an|schauen (hat angeschaut)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">👀</span><span class="word-span">👀 sehen (hat gesehen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">👂 hören (hat gehört)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">👃 riechen (hat gerochen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">👍 gefallen (hat gefallen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🗣️ reden (hat geredet)</span></div>
+            </div>
+        </div>
+        <div class="category-card verb-card">
+            <div class="category-title">💳 Konsum, Entscheidungen & Interaktion</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">👆 aus|suchen (hat ausgesucht)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">📱 bestellen (hat bestellt)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🖐️ nehmen (hat genommen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">💳</span><span class="word-span">🛒 kaufen (hat gekauft)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🤝 helfen (hat geholfen)</span></div>
+            </div>
+        </div>
+        <div class="category-card verb-card">
+            <div class="category-title">📚 Lernen, Wissen & Arbeit</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🏋️ üben (hat geübt)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">💼 arbeiten (hat gearbeitet)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">📚</span><span class="word-span">📚 lernen (hat gelernt)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🤔 wissen (hat gewusst)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🧠 merken (hat gemerkt)</span></div>
+            </div>
+        </div>
+        <div class="category-card verb-card">
+            <div class="category-title">🚶‍♂️ Bewegung & Reise</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🎁 bekommen (hat bekommen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🚶</span><span class="word-span">🏃 laufen (istgelaufen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">👋 vorbei|kommen (istvorbeigekommen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">✈️</span><span class="word-span">💡 erfahren (hat erfahren)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">✈️</span><span class="word-span">🚗 fahren (istgefahren)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🚶</span><span class="word-span">🚶 hin|gehen (isthingegangen)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🤿 tauchen (istgetaucht)</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🧍 stehen (hat gestanden)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO DE ADJETIVOS -->
+    <h2 class="section-title adj-title">🎨 Adjektive (Eigenschaften & Bewertung)</h2>
+    <div class="masonry-grid">
+        <div class="category-card adj-card">
+            <div class="category-title">⏳ Zeit & Tempo</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">⚡</span><span class="word-span">⚡ schnell</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">⏳</span><span class="word-span">❄️ kalt</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">👦 jung</span></div>
+            </div>
+        </div>
+        <div class="category-card adj-card">
+            <div class="category-title">✨ Eigenschaften & Diversität</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🌈 bunt</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🌴 exotisch</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🏃‍♂️ aktiv</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🔀 verschieden</span></div>
+            </div>
+        </div>
+        <div class="category-card adj-card">
+            <div class="category-title">🌡️ Wahrnehmung (Wetter, Lautstärke)</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">☕ heiß</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🌤️ warm</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">💎 klar</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🔈 leise</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🔊 laut</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🤫 ruhig</span></div>
+            </div>
+        </div>
+        <div class="category-card adj-card">
+            <div class="category-title">👍 Positiv (Bewertung)</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">👍</span><span class="word-span">✨ schön</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">❗ wichtig</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">👍</span><span class="word-span">🌟 toll</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">👍</span><span class="word-span">👍 gut</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">😋 lecker</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🤩 spannend</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🧐 interessant</span></div>
+            </div>
+        </div>
+        <div class="category-card adj-card">
+            <div class="category-title">👎 Negativ (Bewertung)</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🥱 langweilig</span></div>
+            </div>
+        </div>
+        <div class="category-card adj-card">
+            <div class="category-title">📏 Größe, Menge & Gewicht</div>
+            <div class="vocabulary-grid">
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">➕ viel / viele</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">➖ wenig</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🏋️ schwer</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">⬆️</span><span class="word-span">🏔️ hoch</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">⬇️</span><span class="word-span">🐁 klein</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">⬆️</span><span class="word-span">🐘 groß</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">📍 nah</span></div>
+                <div class="vocab-item" onclick="toggleHighlight(this)"><span class="icon">🔸</span><span class="word-span">🦕 riesig</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleHighlight(element) {
+            element.classList.toggle('highlighted');
+        }
+    </script>
+</body>
+</html>
